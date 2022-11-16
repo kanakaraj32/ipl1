@@ -1,11 +1,19 @@
+import {Link} from 'react-router-dom'
+
+import './index.css'
+
 const Team = props => {
   const {details} = props
-  const {name} = details
+  const {name, image, id} = details
   return (
-    <li>
-      <h1>raju</h1>
-      <h1>{name}</h1>
-    </li>
+    <div className="cont">
+      <Link to={`/team-matches/${id}`}>
+        <li className="li">
+          <img src={image} alt={name} className="img" />
+          <p>{name}</p>
+        </li>
+      </Link>
+    </div>
   )
 }
 export default Team

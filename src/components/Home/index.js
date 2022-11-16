@@ -1,8 +1,15 @@
 import {Component} from 'react'
 
+import {Loader} from 'react-loader-spinner'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+
+import Team from '../TeamCard'
+
 import './index.css'
 
 class Home extends Component {
+  state = {check: false, matter: []}
+
   componentDidMount = () => {
     this.getData()
   }
@@ -10,13 +17,16 @@ class Home extends Component {
   getData = async () => {
     const response = await fetch('https://apis.ccbp.in/ipl')
     const data = await response.json()
-    const updata = data.map(each => ({
+    const updata = data.teams.map(each => ({
       id: each.id,
+      name: each.name,
+      image: each.team_image_url,
     }))
-    console.log(data)
+    this.setState({matter: updata})
   }
 
   render() {
+    const {check, matter} = this.state
     return (
       <div className="container">
         <div className="con">
@@ -26,6 +36,17 @@ class Home extends Component {
             className="image"
           />
           <h1 className="head">IPL Dashboard</h1>
+        </div>
+        <div>
+          {check ? (
+            <Loader type="TailSpin" color="#00bfff" height={50} width={50} />
+          ) : (
+            <ul className="blogs-list">
+              {matter.map(each => (
+                <Team details={each} key={each.id} />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     )

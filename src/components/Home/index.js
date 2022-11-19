@@ -23,6 +23,7 @@ class Home extends Component {
       image: each.team_image_url,
     }))
     this.setState({matter: updata})
+    console.log(data)
   }
 
   render() {

@@ -1,1 +1,4 @@
-/* Write your CSS here */
+.con {
+  display: flex;
+  flex-direction: column;
+}

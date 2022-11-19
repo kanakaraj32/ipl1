@@ -2,6 +2,8 @@ import {Component} from 'react'
 
 import Data from '../MatchCard'
 
+import './index.css'
+
 class Welcome extends Component {
   state = {content: []}
 
@@ -17,6 +19,10 @@ class Welcome extends Component {
     const data = await response.json()
     const option = data.latest_match_details.map(each => ({
       competingTeam: each.competing_team,
+      competingteamlogo: each.competing_team_logo,
+      date: each.date,
+      venue: each.venue,
+      firstinnings: each.first_innings,
     }))
     this.setState({content: option})
 
@@ -24,9 +30,12 @@ class Welcome extends Component {
   }
 
   render() {
+    // eslint-disable-next-line
     const {content} = this.state
+
     return (
-      <div>
+      <div className="con">
+        <h1>raju</h1>
         {content.map(each => (
           <Data details={each} />
         ))}

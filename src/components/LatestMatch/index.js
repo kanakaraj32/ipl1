@@ -5,7 +5,7 @@ import Data from '../MatchCard'
 import './index.css'
 
 class Welcome extends Component {
-  state = {content: []}
+  state = {content: {}}
 
   componentDidMount() {
     this.raju()
@@ -17,13 +17,20 @@ class Welcome extends Component {
     const {id} = params
     const response = await fetch(`https://apis.ccbp.in/ipl/${id}`)
     const data = await response.json()
-    const option = data.latest_match_details.map(each => ({
-      competingTeam: each.competing_team,
-      competingteamlogo: each.competing_team_logo,
-      date: each.date,
-      venue: each.venue,
-      firstinnings: each.first_innings,
-    }))
+
+    const option = {
+      competingTeam: data.latest_match_details.competing_team,
+      competingteamlogo: data.latest_match_details.competing_team_logo,
+      date: data.latest_match_details.date,
+      venue: data.latest_match_details.venue,
+      firstinnings: data.latest_match_details.first_innings,
+      id: data.latest_match_details.id,
+      maOfMatch: data.latest_match_details.man_of_the_match,
+      matchStatus: data.latest_match_details.match_status,
+      result: data.latest_match_details.result,
+      secondInnings: data.latest_match_details.second_innings,
+      umpires: data.latest_match_details.umpires,
+    }
     this.setState({content: option})
 
     console.log(data)
@@ -35,10 +42,11 @@ class Welcome extends Component {
 
     return (
       <div className="con">
-        <h1>raju</h1>
-        {content.map(each => (
-          <Data details={each} />
-        ))}
+        <ul>
+          {content.map(each => (
+            <Data detail={each} key={each.id} />
+          ))}
+        </ul>
       </div>
     )
   }
